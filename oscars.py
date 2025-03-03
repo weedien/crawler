@@ -1,8 +1,9 @@
 import os
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-import datetime
+from datetime import datetime
 from bs4 import BeautifulSoup
 import pandas as pd
 from openpyxl import load_workbook
@@ -28,6 +29,7 @@ def fetch_save_content():
     while current_year >= start_year:
         target_url = base_url + str(current_year)
         driver.get(target_url)
+        sleep(2)
         with open(
             f"./{tmpdir}/oscars-of-{current_year}.html", "w", encoding="utf-8"
         ) as f:
@@ -100,7 +102,7 @@ def save_to_excel(data: list, path: str) -> None:
 
 
 def main():
-    # fetch_save_content()
+    fetch_save_content()
     current_year = datetime.now().year
     data = []
     while current_year >= start_year:
